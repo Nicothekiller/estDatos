@@ -34,7 +34,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "com.nic.App"
+    mainClass = "com.nic.EI.EI01.Main"
 }
 
 tasks.named<Test>("test") {
