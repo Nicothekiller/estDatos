@@ -122,7 +122,7 @@ public class DoublyLinkedList<E> {
 
     // private update methods
     /** Adds element e to the linked list in between the given nodes. */
-    private void addBetween(E e, Node<E> predecessor, Node<E> successor) {
+    public void addBetween(E e, Node<E> predecessor, Node<E> successor) {
         // create and link a new node
         Node<E> newest = new Node<>(e, predecessor, successor);
         predecessor.setNext(newest);
@@ -131,12 +131,20 @@ public class DoublyLinkedList<E> {
     }
 
     /** Removes the given node from the list and returns its element. */
-    private E remove(Node<E> node) {
+    public E remove(Node<E> node) {
         Node<E> predecessor = node.getPrev();
         Node<E> successor = node.getNext();
         predecessor.setNext(successor);
         successor.setPrev(predecessor);
         size--;
         return node.getElement();
+    }
+
+    public Node<E> search(E element) {
+        var start = this.header;
+        for (int i = 0; i < this.size(); i++) {
+
+        }
+        return null;
     }
 }
