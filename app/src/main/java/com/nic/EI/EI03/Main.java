@@ -10,6 +10,7 @@ public class Main {
     }
 
     // Si funciona ya que se quita 1
+    // Solo posible quitar el ultimo elemento con un Doubly Linked List
     System.out.println(extensiones.removeLast());
     // EL ultimo es el de longitud 8
     System.out.println(extensiones.last());
