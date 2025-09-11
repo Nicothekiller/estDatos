@@ -140,11 +140,11 @@ public class DoublyLinkedList<E> {
         return node.getElement();
     }
 
-    public Node<E> search(E element) {
-        var start = this.header;
-        for (int i = 0; i < this.size(); i++) {
-
-        }
-        return null;
-    }
+    // public Node<E> search(E element) {
+    // var start = this.header;
+    // for (int i = 0; i < this.size(); i++) {
+    //
+    // }
+    // return null;
+    // }
 }
