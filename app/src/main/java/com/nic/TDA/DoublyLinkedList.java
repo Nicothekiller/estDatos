@@ -1,15 +1,15 @@
 package com.nic.TDA;
 
 public class DoublyLinkedList<E> {
-    private static class Node<E> {
+    public static class DLLNode<E> {
         // reference to the element stored at this node
-        private E element;
+        private final E element;
         // reference to the previous node in the list
-        private Node<E> prev;
+        private DLLNode<E> prev;
         // reference to the subsequent node in the list
-        private Node<E> next;
+        private DLLNode<E> next;
 
-        public Node(E e, Node<E> p, Node<E> n) {
+        public DLLNode(final E e, final DLLNode<E> p, final DLLNode<E> n) {
             this.element = e;
             this.prev = p;
             this.next = n;
@@ -19,28 +19,28 @@ public class DoublyLinkedList<E> {
             return element;
         }
 
-        public Node<E> getPrev() {
+        public DLLNode<E> getPrev() {
             return prev;
         }
 
-        public Node<E> getNext() {
+        public DLLNode<E> getNext() {
             return next;
         }
 
-        public void setPrev(Node<E> p) {
+        public void setPrev(final DLLNode<E> p) {
             prev = p;
         }
 
-        public void setNext(Node<E> n) {
+        public void setNext(final DLLNode<E> n) {
             next = n;
         }
     }// ----------- end of nested Node class -----------
 
     // instance variables of the DoublyLinkedList
     // header sentinel
-    private Node<E> header;
+    private final DLLNode<E> header;
     // trailer sentinel
-    private Node<E> trailer;
+    private final DLLNode<E> trailer;
     private int size = 0;
 
     /**
@@ -48,9 +48,9 @@ public class DoublyLinkedList<E> {
      */
     public DoublyLinkedList() {
         // create header
-        this.header = new Node<>(null, null, null);
+        this.header = new DLLNode<>(null, null, null);
         // trailer is preceded by header
-        this.trailer = new Node<>(null, header, null);
+        this.trailer = new DLLNode<>(null, header, null);
         // header is followed by trailer
         this.header.setNext(trailer);
     }
@@ -91,13 +91,13 @@ public class DoublyLinkedList<E> {
 
     // public update methods
     /** Adds element e to the front of the list. */
-    public void addFirst(E e) {
+    public void addFirst(final E e) {
         addBetween(e, header, header.getNext());
         // place just after the header
     }
 
     /** Adds element e to the end of the list. */
-    public void addLast(E e) {
+    public void addLast(final E e) {
         addBetween(e, trailer.getPrev(), trailer);
         // place just before the trailer
     }
@@ -122,29 +122,32 @@ public class DoublyLinkedList<E> {
 
     // private update methods
     /** Adds element e to the linked list in between the given nodes. */
-    public void addBetween(E e, Node<E> predecessor, Node<E> successor) {
+    public void addBetween(final E e, final DLLNode<E> predecessor, final DLLNode<E> successor) {
         // create and link a new node
-        Node<E> newest = new Node<>(e, predecessor, successor);
+        final DLLNode<E> newest = new DLLNode<>(e, predecessor, successor);
         predecessor.setNext(newest);
         successor.setPrev(newest);
         size++;
     }
 
     /** Removes the given node from the list and returns its element. */
-    public E remove(Node<E> node) {
-        Node<E> predecessor = node.getPrev();
-        Node<E> successor = node.getNext();
+    public E remove(final DLLNode<E> node) {
+        final DLLNode<E> predecessor = node.getPrev();
+        final DLLNode<E> successor = node.getNext();
         predecessor.setNext(successor);
         successor.setPrev(predecessor);
         size--;
         return node.getElement();
     }
 
-    // public Node<E> search(E element) {
-    // var start = this.header;
-    // for (int i = 0; i < this.size(); i++) {
-    //
-    // }
-    // return null;
-    // }
+    public DLLNode<E> search(final E element) {
+        var walk = this.header.getNext();
+        while (walk != null) {
+            if (walk.getElement() == element) {
+                return walk;
+            }
+            walk = walk.getNext();
+        }
+        return null;
+    }
 }
