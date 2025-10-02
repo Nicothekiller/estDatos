@@ -42,18 +42,28 @@ public class LinkedTree<E> {
 
     // amount of child nodes
     public int getChildrenSize() { return nodes.size(); }
-    public void addNode(E e) {
+
+    /**
+     * Dont use directly outside the class. It messes up the size variable. Use
+     * The LinkedTree addChild function instead.
+     */
+    protected void addNode(E e) {
       nodes.addLast(new TreeNode<E>(e, getParent(),
                                     new LinkedPositionalList<TreeNode<E>>()));
     }
-    public void addNode(TreeNode<E> e) { nodes.addLast(e); }
+
+    /**
+     * Dont use directly outside the class. It messes up the size variable. Use
+     * The LinkedTree addChild function instead.
+     */
+    protected void addNode(TreeNode<E> e) { nodes.addLast(e); }
   } //----------- end of nested Node class -----------
 
   //---------------- nested ElementIterator class ----------------
   /* This class adapts the iteration produced by positions
   () to return elements. */
   private class ElementIterator implements Iterator<E> {
-    Iterator<Position<E>> posIterator = positions().iterator();
+    Iterator<TreeNode<E>> posIterator = positions().iterator();
     public boolean hasNext() { return posIterator.hasNext(); }
     public E next() {
       return posIterator.next().getElement();
@@ -110,9 +120,9 @@ public class LinkedTree<E> {
   }
 
   /** Overrides positions to make inorder the default order for binary trees. */
-  public Iterable<Position<E>> positions() { return preorder(); }
-  public Iterable<Position<E>> preorder() {
-    java.util.List<Position<E>> snapshot = new java.util.ArrayList<>();
+  public Iterable<TreeNode<E>> positions() { return preorder(); }
+  public Iterable<TreeNode<E>> preorder() {
+    List<TreeNode<E>> snapshot = new ArrayList<>();
     if (!isEmpty())
       preorderSubtree(root(), snapshot);
     // fill the snapshot recursively
@@ -140,7 +150,7 @@ public class LinkedTree<E> {
   public Position<E> addRoot(E e) throws IllegalStateException {
     if (!isEmpty())
       throw new IllegalStateException("Tree is not empty");
-    root = createNode(e, null, null);
+    root = createNode(e, null, new LinkedPositionalList<>());
     size = 1;
     return root;
   }
@@ -156,7 +166,10 @@ public class LinkedTree<E> {
     return temp;
   }
 
-  public void addChild(TreeNode<E> p, E e) { p.addNode(e); }
+  public void addChild(TreeNode<E> p, E e) {
+    p.addNode(e);
+    size += 1;
+  }
 
   /** Attaches trees t1 and t2 as left and right subtrees of external p. */
   public void attach(Position<E> p, LinkedTree<E> t1)
@@ -250,8 +263,7 @@ public class LinkedTree<E> {
 
   // number of nodes in the tree
   // constructor
-  private void preorderSubtree(TreeNode<E> p,
-                               java.util.List<Position<E>> snapshot) {
+  private void preorderSubtree(TreeNode<E> p, List<TreeNode<E>> snapshot) {
     snapshot.add(p);
     // for preorder, we add position p before exploring subtrees
     for (TreeNode<E> c : children(p))
