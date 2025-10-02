@@ -71,6 +71,10 @@ public class Main {
     for (final var val : numbersTree.preorder()) {
       System.out.println(val.getElement());
     }
+    System.out.println("\n--- postorder ---");
+    for (final var val : numbersTree.postorder()) {
+      System.out.println(val.getElement());
+    }
   }
 
   /**
