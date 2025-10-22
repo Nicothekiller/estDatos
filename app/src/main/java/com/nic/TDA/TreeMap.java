@@ -504,7 +504,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
    *
    * @param p the position which was recently inserted
    */
-  protected void rebalanceInsert(Position<Entry<K, V>> p) {}
+  // protected void rebalanceInsert(Position<Entry<K, V>> p) {}
 
   /**
    * Rebalances the tree after a child of specified position has been removed.
@@ -513,7 +513,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
    *
    * @param p the position of the sibling of the removed leaf
    */
-  protected void rebalanceDelete(Position<Entry<K, V>> p) {}
+  // protected void rebalanceDelete(Position<Entry<K, V>> p) {}
 
   /**
    * Rebalances the tree after an access of specified position. This version of
@@ -525,22 +525,24 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
 
   //  AVL hooks for rebalancing, in case they are needed.
   //
-  // /**
-  //  * Overrides the TreeMap rebalancing hook that is called after an
-  //  insertion.
-  //  */
-  // protected void rebalanceInsert(Position<Entry<K, V>> p) { rebalance(p); }
-  // /** Overrides the TreeMap rebalancing hook that is called after a deletion.
-  // */ protected void rebalanceDelete(Position<Entry<K, V>> p) {
-  //   if (!isRoot(p))
-  //     rebalance(parent(p));
-  // }
+  /**
+   * Overrides the TreeMap rebalancing hook that is called after an
+   insertion.
+   */
+  protected void rebalanceInsert(Position<Entry<K, V>> p) { rebalance(p); }
+  /**
+   * Overrides the TreeMap rebalancing hook that is called after a deletion.
+   */
+  protected void rebalanceDelete(Position<Entry<K, V>> p) {
+    if (!isRoot(p))
+      rebalance(parent(p));
+  }
 
   // remainder of class is for debug purposes only
   /**
    * Prints textual representation of tree structure (for debug purpose only).
    */
-  protected void dump() { dumpRecurse(root(), 0); }
+  public void dump() { dumpRecurse(root(), 0); }
 
   /** This exists for debugging only */
   private void dumpRecurse(Position<Entry<K, V>> p, int depth) {
@@ -549,7 +551,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
     if (isExternal(p))
       System.out.println(indent + "leaf");
     else {
-      System.out.println(indent + p.getElement());
+      System.out.println(indent + p.getElement().getValue());
       dumpRecurse(left(p), depth + 1);
       dumpRecurse(right(p), depth + 1);
     }
