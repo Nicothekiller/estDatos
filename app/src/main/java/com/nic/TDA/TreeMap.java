@@ -523,7 +523,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
    */
   protected void rebalanceAccess(Position<Entry<K, V>> p) {}
 
-  //  AVL hooks for rebalancing, in case they are needed.
+  //  hooks for rebalancing, in case they are needed.
   //
   /**
    * Overrides the TreeMap rebalancing hook that is called after an
