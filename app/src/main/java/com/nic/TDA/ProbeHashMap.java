@@ -88,10 +88,10 @@ public class ProbeHashMap<K, V> extends AbstractHashMap<K, V> {
       value entries of the map.
    */
   public Iterable<Entry<K, V>> entrySet() {
-    ArrayList<Entry<K, V>> buﬀer = new ArrayList<>();
+    ArrayList<Entry<K, V>> buffer = new ArrayList<>();
     for (int h = 0; h < capacity; h++)
       if (!isAvailable(h))
-        buﬀer.add(table[h]);
-    return buﬀer;
+        buffer.add(table[h]);
+    return buffer;
   }
 }
