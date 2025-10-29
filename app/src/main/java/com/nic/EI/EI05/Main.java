@@ -1,7 +1,7 @@
 package com.nic.EI.EI05;
 
-import com.nic.TDA.HashMultimap;
-import java.util.ArrayList;
+import com.nic.TDA.DoublyLinkedList;
+import com.nic.TDA.Entry;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -24,7 +24,7 @@ public class Main {
       System.out.println(persona);
     }
 
-    // Example for Tienda (using ProbeHashMap - Linear Probing)
+    // ejemplo para la tienda (Linear Probing)
     System.out.println("\n--- Tienda (ProbeHashMap) ---");
     Tienda tienda = new Tienda();
     Cliente cliente1 = new Cliente(100, "Charlie", 35, "789");
@@ -38,15 +38,33 @@ public class Main {
     System.out.println("Nuevo balance para cedula 789: " +
                        tienda.getBalance("789"));
 
-    // Example for Survey (using HashMultimap - "Double Hashing")
-    System.out.println("\n--- Survey (HashMultimap) ---");
+    // Ejemplo de survey (Double Hashing)
+    System.out.println("\n--- Survey (DoubleHashMap) ---");
     Survey<String> survey = new Survey<>();
     survey.addRespuesta("Color", "Blue");
     survey.addRespuesta("Color", "Red");
     survey.addRespuesta("Animal", "Dog");
+    survey.addRespuesta("Animal", "Cat");
 
-    System.out.println("Respuestas para Color: " +
-                       survey.getRespuesta("Color"));
-    System.out.println("Todas las respuestas: " + survey.getRespuestas());
+    DoublyLinkedList<String> respuesta = survey.getRespuesta("Color");
+    System.out.println("Respuestas para Color: ");
+    while (respuesta.size() != 0) {
+      System.out.print(respuesta.removeLast() + " ");
+    }
+
+    survey.addRespuesta("Color", "Blue");
+    survey.addRespuesta("Color", "Red");
+    survey.addRespuesta("Color", "Green");
+
+    Iterable<Entry<String, DoublyLinkedList<String>>> respuestas =
+        survey.getRespuestas();
+    System.out.println("\n\nTodas las respuestas: ");
+    for (var values : respuestas) {
+      System.out.print(values.getKey() + ": ");
+      while (values.getValue().size() != 0) {
+        System.out.print(values.getValue().removeLast() + " ");
+      }
+      System.out.println();
+    }
   }
 }

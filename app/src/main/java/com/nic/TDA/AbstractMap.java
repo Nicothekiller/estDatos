@@ -6,6 +6,10 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
   public boolean isEmpty() { return size() == 0; }
   //---------------- nested MapEntry class ----------------
   protected static class MapEntry<K, V> implements Entry<K, V> {
+    @Override
+    public String toString() {
+      return "[" + k + "=" + v + "]";
+    }
     private K k; // key
     private V v; // value
     public MapEntry(K key, V value) {
