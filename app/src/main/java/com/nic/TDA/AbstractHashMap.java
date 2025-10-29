@@ -36,7 +36,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
     return answer;
   }
   // private utilities
-  protected int hashValue(K key) {
+  public int hashValue(K key) {
     return (int)((Math.abs(key.hashCode() * scale + shift) % prime) % capacity);
   }
   private void resize(int newCap) {
