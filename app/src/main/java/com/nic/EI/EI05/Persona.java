@@ -22,4 +22,10 @@ public class Persona {
   public String getCedula() { return cedula; }
 
   public void setCedula(final String cedula) { this.cedula = cedula; }
+
+  @Override
+  public String toString() {
+    return "Persona [nombre=" + nombre + ", edad=" + edad +
+        ", cedula=" + cedula + "]";
+  }
 }

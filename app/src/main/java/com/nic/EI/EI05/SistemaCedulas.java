@@ -13,13 +13,15 @@ public class SistemaCedulas {
 
   public SistemaCedulas() { mapaPersonas = new ChainHashMap<>(); }
 
+  public Iterable<Persona> values() { return mapaPersonas.values(); }
+
   /**
    * Añade una persona al sistema. No funciona si ya existe una persona con una
    * cedula especifica. Para añadir/remplazar una persona utilizar el metodo
    * replacePersona.
    */
   public void addPersona(final Persona persona) throws Exception {
-    if (mapaPersonas.get(persona.getCedula()).equals(null)) {
+    if (mapaPersonas.get(persona.getCedula()) == null) {
       mapaPersonas.put(persona.getCedula(), persona);
     } else {
       throw new Exception("Ya existe esa persona en el sistema.");

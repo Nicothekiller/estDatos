@@ -6,6 +6,8 @@ import java.util.Map.Entry;
 /**
  * Clase que simula un survey basado en el key designado de las personas que
  * responden (ej: edad).
+ *
+ * Utiliza el metodo de Double Hashing para evitar colisiones.
  */
 public class Survey<K> {
   private final HashMultimap<K, String> surveyMap;
